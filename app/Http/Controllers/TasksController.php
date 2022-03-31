@@ -3,33 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Task;
 
 class TasksController extends Controller
 {
     public function index(){
 
-        $tasks = [
-            [
-                "id" => 1,
-                "name" => "Estudar PHP 7",
-                "complete" => false
-            ],
-            [
-                "id" => 2,
-                "name" => "Estudar laravel 6",
-                "complete" => true
-            ],
-            [
-                "id" => 3,
-                "name" => "Estudar JavaScript",
-                "complete" => true
-            ],
-        ];
-    
-        return $tasks;
+        return Task::all();
     }
 
-    public function store(){
-        return 'Test Post Method';
+    public function store(Request $request){
+
+        $task = Task::create([
+            'name'=>$request->input('name'),
+            'complete'=>$request->input('complete')
+        ]);
+
+        return $task; 
     }
 }
